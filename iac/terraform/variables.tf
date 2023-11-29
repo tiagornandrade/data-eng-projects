@@ -21,10 +21,10 @@ variable "datasets" {
   }))
   default = [
     {
-      name = "dataset1"
+      name = "accounts"
     },
     {
-      name = "dataset2"
+      name = "leads"
     }
   ]
 }
