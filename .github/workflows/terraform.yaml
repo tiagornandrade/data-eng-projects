@@ -14,32 +14,32 @@ jobs:
     name: Terraform
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        shell: bash
-
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-      - name: Terraform Init
+      - name: Configure Google Cloud credentials
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: Initialize Terraform
         run: terraform init
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
 
-      - name: Terraform Format
-        run: terraform fmt -check
+      - name: Plan Terraform changes
+        run: terraform plan -out=tfplan
 
-      - name: Terraform Plan
-        run: terraform plan -input=false
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      - name: Apply Terraform changes
+        run: terraform apply -auto-approve tfplan
 
-      - name: Terraform Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: terraform apply -auto-approve
-        env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      - name: Clean up Terraform files
+        run: rm -rf .terraform tfplan
+
+      - name: Store Terraform state
+        run: |
+          gsutil cp terraform.tfstate gs://${{ secrets.TERRAFORM_BUCKET }}/terraform.tfstate
+        if: always()
