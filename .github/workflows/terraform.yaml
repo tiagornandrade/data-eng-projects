@@ -18,10 +18,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up GCP credentialsv:
+      - name: Set up GCP credentials
+        env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
-        ru
-        enn: echo "$GOOGLE_APPLICATION_CREDENTIALS" > /tmp/key.json
+        run: echo "$GOOGLE_APPLICATION_CREDENTIALS" > /tmp/key.json
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
