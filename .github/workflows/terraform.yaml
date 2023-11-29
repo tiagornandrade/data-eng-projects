@@ -37,7 +37,7 @@ jobs:
         working-directory: iac/terraform
 
       - name: Plan Terraform changes
-        run: terraform plan -out=tfplan
+        run: terraform plan
         working-directory: iac/terraform
 
       - name: Apply Terraform changes
