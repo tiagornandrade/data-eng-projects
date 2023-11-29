@@ -23,21 +23,24 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
         run: echo "$GOOGLE_APPLICATION_CREDENTIALS" > /tmp/key.json
 
+      - name: Authenticate with Google Cloud
+        run: gcloud auth application-default login
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
-#      - name: Configure Google Cloud credentials
-#        uses: google-github-actions/setup-gcloud@v0
-#        with:
-#          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
-#          project_id: ${{ secrets.GCP_PROJECT_ID }}
+      - name: Configure Google Cloud credentials
+        uses: google-github-actions/setup-gcloud@v0
+        with:
+          service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
 
       - name: Initialize Terraform
         run: terraform init
         working-directory: iac/terraform
 
       - name: Plan Terraform changes
-        run: terraform plan
+        run: terraform plan -out=tfplan
         working-directory: iac/terraform
 
       - name: Apply Terraform changes
