@@ -19,9 +19,9 @@ provider "google" {
   project = var.project.id
   region  = var.region
   zone    = var.zone
-  batching {
-    enable_batching = false
-  }
+#  batching {
+#    enable_batching = false
+#  }
 }
 
 provider "google-beta" {
