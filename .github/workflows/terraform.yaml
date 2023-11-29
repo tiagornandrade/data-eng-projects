@@ -43,8 +43,8 @@ jobs:
         run: rm -rf .terraform tfplan
         working-directory: iac/terraform
 
-      - name: Store Terraform state
-        run: |
-          gsutil cp terraform.tfstate gs://terraform-projects-storage/terraform/state/terraform.tfstate
-        working-directory: iac/terraform
-        if: always()
+#      - name: Store Terraform state
+#        run: |
+#          gsutil cp terraform.tfstate gs://${{ secrets.TERRAFORM_BUCKET }}/terraform/state/
+#        working-directory: iac/terraform
+#        if: always()
