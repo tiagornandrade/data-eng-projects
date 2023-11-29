@@ -7,16 +7,24 @@ variable "project" {
   }
 }
 
+variable "region" {
+  default = "us-central1"
+}
+
+variable "zone" {
+  default = "us-central1-a"
+}
+
 variable "datasets" {
   type = list(object({
     name = string
   }))
   default = [
     {
-      name = "dataset1"
+      name = "accounts"
     },
     {
-      name = "dataset2"
+      name = "leads"
     }
   ]
 }
