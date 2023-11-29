@@ -27,6 +27,9 @@ jobs:
           service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+      - name: Change to Terraform directory
+        run: cd iac/terraform
+
       - name: Initialize Terraform
         run: terraform init
 
