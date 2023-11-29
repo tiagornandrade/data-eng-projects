@@ -27,22 +27,24 @@ jobs:
           service_account_key: ${{ secrets.GOOGLE_CREDENTIALS }}
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Change to Terraform directory
-        run: cd iac/terraform
-
       - name: Initialize Terraform
         run: terraform init
+        working-directory: iac/terraform
 
       - name: Plan Terraform changes
         run: terraform plan -out=tfplan
+        working-directory: iac/terraform
 
       - name: Apply Terraform changes
         run: terraform apply -auto-approve tfplan
+        working-directory: iac/terraform
 
       - name: Clean up Terraform files
         run: rm -rf .terraform tfplan
+        working-directory: iac/terraform
 
       - name: Store Terraform state
         run: |
           gsutil cp terraform.tfstate gs://${{ secrets.TERRAFORM_BUCKET }}/terraform.tfstate
+        working-directory: iac/terraform
         if: always()
