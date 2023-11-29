@@ -45,6 +45,6 @@ jobs:
 
       - name: Store Terraform state
         run: |
-          gsutil cp terraform.tfstate gs://${{ secrets.TERRAFORM_BUCKET }}/terraform/state/${{ github.sha }}.tfstate
+          gsutil cp terraform.tfstate gs://terraform-projects-storage/terraform/state/terraform.tfstate
         working-directory: iac/terraform
         if: always()
