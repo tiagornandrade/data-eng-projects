@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  init:
-    name: Terraform Init
+  terraform:
+    name: Terraform
     runs-on: ubuntu-latest
 
     steps:
@@ -31,30 +31,16 @@ jobs:
         run: terraform init
         working-directory: iac/terraform
 
-  plan:
-    name: Terraform Plan
-    runs-on: ubuntu-latest
-    needs: [init]
-
-    steps:
-
       - name: Plan Terraform changes
-        run: /bin/bash -c terraform plan -out=tfplan
+        run: terraform plan -out=tfplan
         working-directory: iac/terraform
 
-  apply:
-    name: Terraform Apply
-    runs-on: ubuntu-latest
-    needs: [init, plan]
-
-    steps:
-
       - name: Apply Terraform changes
-        run: /bin/bash -c terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve tfplan
         working-directory: iac/terraform
 
       - name: Clean up Terraform files
-        run: /bin/bash -c rm -rf .terraform tfplan
+        run: rm -rf .terraform tfplan
         working-directory: iac/terraform
 
 #      - name: Store Terraform state
@@ -62,4 +48,3 @@ jobs:
 #          gsutil cp terraform.tfstate gs://${{ secrets.TERRAFORM_BUCKET }}/terraform/state/
 #        working-directory: iac/terraform
 #        if: always()
-
