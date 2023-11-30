@@ -1,4 +1,4 @@
-resource "google_bigquery_table" "accounts_users" {
+resource "google_bigquery_table" "accounts" {
   dataset_id = google_bigquery_dataset.dataset[0].dataset_id
 
   table_id   = "users"
