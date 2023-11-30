@@ -3,14 +3,14 @@ resource "google_bigquery_table" "accounts_users" {
 
   table_id   = "users"
 
-  schema = [
+  schema = jsonencode([
     {
-      name = "user_id"
+      name = "user_id",
       type = "STRING"
     },
     {
-      name = "username"
+      name = "username",
       type = "STRING"
     }
-  ]
+  ])
 }
