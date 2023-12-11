@@ -1,0 +1,6 @@
+apache-beam[gcp]
+google-cloud-bigquery
+google-cloud-storage
+google-cloud-secret-manager
+requests
+python-dotenv
