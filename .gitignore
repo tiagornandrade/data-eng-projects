@@ -1,4 +1,4 @@
 .idea
-/ingestion/streaming/.env
-/terraform/credential.json
+./iac/terraform/credential.json
 service_account.json
+./ingestion/streaming/.env
