@@ -1,7 +1,5 @@
 .idea
 ./iac/terraform/credential.json
 service_account.json
-./ingestion/streaming/.env
-data-eng-projects/iac/terraform/credential.json
-data-eng-projects/service_account.json
-data-eng-projects/ingestion/streaming/.env
+*.env
+/iac/terraform/credential.json
