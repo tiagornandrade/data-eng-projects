@@ -2,3 +2,4 @@
 ./iac/terraform/credential.json
 service_account.json
 *.env
+/iac/terraform/credential.json
