@@ -15,6 +15,10 @@ variable "zone" {
   default = "us-central1-a"
 }
 
+variable "credential" {
+  default = "../../credentials.json"
+}
+
 variable "datasets" {
   type = list(object({
     name = string
